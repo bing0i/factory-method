@@ -1,6 +1,9 @@
 # Factory Method
 
-**18125118 - Phan Pham Thanh Tuyen**
+**<uil-user /> Phan Pham Thanh Tuyen**
+
+<PrimaryButton />
+<SecondaryButton />
 
 ---
 
@@ -29,6 +32,47 @@
 - Subclasses may return different types of products only if these products have a common base class or interface
 - Also, the factory method in the base class should have its return type declared as this interface.
 - The code that uses the factory method (often called the client code) doesn’t see a difference between the actual products returned by various subclasses
+
+---
+
+# Class Diagram
+
+```mermaid {theme: 'neutral'}
+classDiagram
+  Creator ..> Product
+  Creator <|-- ConcreteCreator1
+  Creator <|-- ConcreteCreator2
+  ConcreteProduct1 ..|> Product
+  ConcreteProduct2 ..|> Product
+
+  class Creator {
+    ...
+    + someOperation()
+    + createProduct(): Product
+  }
+
+  class ConcreteCreator1 {
+    ...
+    + createProduct(): Product
+  }
+
+  class ConcreteCreator2 {
+    ...
+    + createProduct(): Product
+  }
+
+  class Product {
+    <<interface>>
+    ...
+    + doStuff()
+  }
+
+  class ConcreteProduct1 {
+  }
+
+  class ConcreteProduct2 {
+  }
+```
 
 ---
 
@@ -119,9 +163,9 @@ clientCode(new ConcreteCreator2());
 
 # Pros and Cons
 
-<uim-check class="text-green-400" /> Avoid tight coupling between the creator and the concrete products<br />
-<uim-check class="text-green-400" /> Single Responsibility Principle: move the product creation code into one place in the program, making the code easier to support<br />
-<uim-check class="text-green-400" /> Open/Closed Principle: introduce new types of products into the program without breaking existing client code<br />
+<uim-check class="text-green-400" /> Avoid tight coupling between the creator and the concrete products<br /><br />
+<uim-check class="text-green-400" /> Single Responsibility Principle: move the product creation code into one place in the program, making the code easier to support<br /><br />
+<uim-check class="text-green-400" /> Open/Closed Principle: introduce new types of products into the program without breaking existing client code<br /><br />
 <br />
 <uim-multiply class="text-red-400" /> The code may become more complicated since a lot of new subclasses are introduced to implement the pattern. The best case scenario is when introducing the pattern into an existing hierarchy of creator classes
 
@@ -129,6 +173,5 @@ clientCode(new ConcreteCreator2());
 
 # References
 
-- https://github.com/slidevjs/slidev
-- https://refactoring.guru/design-patterns/factory-method
-- https://www.youtube.com/watch?v=ub0DXaeV6hA&t=205s
+- Slidev: https://github.com/slidevjs/slidev
+- Refactoring Guru: https://refactoring.guru/design-patterns/factory-method
