@@ -128,7 +128,7 @@ public:
 class Form {
 public:
   virtual Button* factoryMethod() const = 0;
-  string render() {
+  void render() {
     Button* button = this->factoryMethod();
     button->render();
     cout << "Form is rendered" << endl;
@@ -194,7 +194,7 @@ int main() {
 
 ---
 
-# Generic Solution
+# General Solution
 
 - Replace direct object construction calls with calls to a special factory method
 - Override the factory method in a subclass
@@ -205,7 +205,7 @@ int main() {
 
 ---
 
-# Generic Class Diagram
+# General Class Diagram
 
 ```mermaid {theme: 'neutral'}
 classDiagram
@@ -246,7 +246,46 @@ classDiagram
 
 ---
 
-# Generic Code Example <uil-java-script class="text-yellow-400" />
+# Class Diagram of the Problem
+
+```mermaid {theme: 'neutral'}
+classDiagram
+  Form ..> Button
+  Form <|-- WindowsForm
+  Form <|-- MacForm
+  WindowsButton ..|> Button
+  MacButton ..|> Button
+
+  class Form {
+    + render()
+    + factoryMethod(): Button
+  }
+
+  class WindowsForm {
+    + factoryMethod(): Button
+  }
+
+  class MacForm {
+    + factoryMethod(): Button
+  }
+
+  class Button {
+    <<interface>>
+    + render()
+  }
+
+  class WindowsButton {
+    + render()
+  }
+
+  class MacButton {
+    + render()
+  }
+```
+
+---
+
+# General Code Example <uil-java-script class="text-yellow-400" />
 
 ```ts {all|1|2|4-7|6|10|11-13|16|17-19|all}
 abstract class Creator {
@@ -273,7 +312,7 @@ class ConcreteCreator2 extends Creator {
 
 ---
 
-# Generic Code Example <uil-java-script class="text-yellow-400" />
+# General Code Example <uil-java-script class="text-yellow-400" />
 
 ```ts {all|1-3|5|6-8|11|12-14|all}
 interface Product {
@@ -295,7 +334,7 @@ class ConcreteProduct2 implements Product {
 
 ---
 
-# Generic Code Example <uil-java-script class="text-yellow-400" />
+# General Code Example <uil-java-script class="text-yellow-400" />
 
 ```ts {all|8,15|9|1|2-4,16|5,17|10,18|12,19|1|2-4,20|5,21|all}
 function clientCode(creator: Creator) {
